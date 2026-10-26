@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Number Guessing Game</title>
+    <style>
+        body { font-family: Arial; text-align: center; margin-top: 50px; }
+        button { padding: 10px 20px; font-size: 16px; background: #3498db; color: white; border: none; border-radius: 5px; cursor: pointer; }
+        input { padding: 8px; font-size: 16px; width: 100px; text-align: center; }
+        #message { margin-top: 20px; font-size: 18px; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <h1>🔢 Guess the Number!</h1>
+    <p>I'm thinking of a number between 1 and 100</p>
+    <input type="number" id="guess" placeholder="Your guess" min="1" max="100">
+    <br><br>
+    <button onclick="checkGuess()">Submit Guess</button>
+    <p id="message"></p>
+    <button onclick="restartGame()" style="background: #27ae60;">New Game</button>
+
+    <script>
+        let secretNumber = Math.floor(Math.random() * 100) + 1;
+        let attempts = 0;
+
+        function checkGuess() {
+            let guess = parseInt(document.getElementById('guess').value);
+            let message = document.getElementById('message');
+            attempts++;
+
+            if (guess === secretNumber) {
+                message.textContent = `🎉 YOU GOT IT! It was ${secretNumber} — in ${attempts} attempts!`;
+                message.style.color = "green";
+            } else if (guess < secretNumber) {
+                message.textContent = "📈 Too low! Try higher!";
+                message.style.color = "orange";
+            } else {
+                message.textContent = "📉 Too high! Try lower!";
+                message.style.color = "orange";
+            }
+        }
+
+        function restartGame() {
+            secretNumber = Math.floor(Math.random() * 100) + 1;
+            attempts = 0;
+            document.getElementById('message').textContent = "";
+            document.getElementById('guess').value = "";
+        }
+    </script>
+</body>
+</html>
